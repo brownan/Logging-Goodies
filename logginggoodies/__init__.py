@@ -35,8 +35,8 @@ class UnixColorFormatter(logging.Formatter):
     """A formatter meant for output to a linux console.
     The following colors are added to the following fields:
 
-    * levelname is colored blue for debug, orange for warning, and highlighted
-      red for error and above
+    * colorlevelname is colored blue for debug, orange for warning,
+      and highlighted red for error and above
     * The entire message is also highlighted red for error and above
 
     You can change the class variables COLORIZE and HIGHLIGHT to change the
@@ -74,17 +74,19 @@ class UnixColorFormatter(logging.Formatter):
 
         # Justify the levelname filed here before it's colorized
         origlevelname = record.levelname
-        record.levelname = self.levelname_format.format(record.levelname)
+        adjustedlevelname = self.levelname_format.format(record.levelname)
 
 
         # Add color to the levelname field as configured depending on the level
         if origlevelname in self.COLORIZE:
             newlevelname = "{color}{record}{reset}".format(
                     color = COLOR_SEQ % (30 + self.COLORIZE[origlevelname]),
-                    record = record.levelname,
+                    record = adjustedlevelname,
                     reset = RESET_SEQ,
                     )
-            record.levelname = newlevelname
+            record.colorlevelname = newlevelname
+        else:
+            record.colorlevelname = origlevelname
 
         # Format the record here
         line = super().format(record)

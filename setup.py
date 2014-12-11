@@ -2,14 +2,14 @@ from setuptools import setup
 
 setup(
         name = "logginggoodies",
-        version = "0.0.1",
+        version = "0.0.2",
         packages = ["logginggoodies"],
         description = "Logging Goodies",
         long_description = "Some useful logging formatters",
 
         url = "https://github.com/brownan/Logging-Goodies",
         author = "Andrew Brown",
-        email = "brownan@gmail.com",
+        author_email = "brownan@gmail.com",
         
         license = "MIT",
         classifiers = [
